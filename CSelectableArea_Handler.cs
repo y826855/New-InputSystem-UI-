@@ -42,7 +42,7 @@ public class CSelectableArea_Handler : MonoBehaviour
         m_Group_CurrScene.AddRange(m_LeftAreas.m_ChildAreas);
     }
 
-
+    //새창 레이어
     public void Push_FocusArea(CSelectableArea_New _area) 
     {
         if (m_PlayerInput.m_CurrSelectableArea == null) return;
@@ -53,6 +53,7 @@ public class CSelectableArea_Handler : MonoBehaviour
         SelectableArea_FocusIn(_area);
     }
 
+    //레이어 된 창 닫기
     public void Pop_FocusArea(CSelectableArea_New _area = null) 
     {
         Debug.Log("POP");
@@ -72,6 +73,7 @@ public class CSelectableArea_Handler : MonoBehaviour
         Debug.Log(idx);
     }
 
+    //모든 레이어된 창 닫기
     public void PopAll_FocusArea() 
     {
         if (m_PrevArea.Count == 0) return;
@@ -80,7 +82,7 @@ public class CSelectableArea_Handler : MonoBehaviour
         m_PrevArea.Clear();
     }
 
-    //SelectableArea
+    //받은 Area에 포커싱 시키기
     void SelectableArea_FocusIn(CSelectableArea_New _area)
     {
         m_IsFocusing = true;
@@ -94,6 +96,7 @@ public class CSelectableArea_Handler : MonoBehaviour
         }
     }
 
+    //Area에 포커싱 종료
     void SelectableArea_FocusOut(CSelectableArea_New _area = null)
     {
         m_IsFocusing = false;
@@ -109,7 +112,7 @@ public class CSelectableArea_Handler : MonoBehaviour
     ////////////////////////////////
 
 
-
+    //닫기 입력
     public void InputEscape() 
     {
         var currArea = m_PlayerInput.m_CurrSelectableArea;

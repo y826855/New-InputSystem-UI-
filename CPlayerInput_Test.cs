@@ -67,6 +67,7 @@ public class CPlayerInput_Test : MonoBehaviour
         CGameManager.Instance.m_SelectableHandler.m_PlayerInput = this;
     }
 
+    /// 타겟 버튼에 커서 이동 
     public void ShowTargetCursor() 
     {
         m_TargetCursor.parent = currSelectable.transform;
@@ -81,10 +82,9 @@ public class CPlayerInput_Test : MonoBehaviour
         var pos = m_TargetCursor.localPosition; pos.z = 0;
         m_TargetCursor.localPosition = pos;
         //m_TargetCursor.localPosition = Vector3.zero;
-
-        
     }
 
+    //
     public void OnInput4Direction(InputAction.CallbackContext _context)
     {
         if (m_IsHoldCup == true) return;
@@ -191,7 +191,7 @@ public class CPlayerInput_Test : MonoBehaviour
         }
     }
 
-    //확인 버튼
+    //확인 버튼 Pad A
     public void OnSubmit(InputAction.CallbackContext _context)
     {
         switch (_context.phase)
@@ -203,7 +203,7 @@ public class CPlayerInput_Test : MonoBehaviour
 
     }
 
-    //포커싱 중인 오브젝트에서 나가기
+    //포커싱 중인 오브젝트에서 나가기  Pad B
     public void OnEscape(InputAction.CallbackContext _context)
     {
         if (_context.phase == InputActionPhase.Performed)
@@ -229,6 +229,7 @@ public class CPlayerInput_Test : MonoBehaviour
     //////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////CURSOR////////////////////////////////////////
     //////////////////////////////////////////////////////////////////////////////////////////
+    //컵 위에 존재하는 버튼 클릭
     public void OnHoldCup(InputAction.CallbackContext _context)
     {
         switch (_context.phase)
@@ -278,6 +279,7 @@ public class CPlayerInput_Test : MonoBehaviour
     Vector2 cursorMove = Vector2.zero;
     Coroutine coCursorMove = null;
 
+    //지속적인 커서 움직임 체크
     IEnumerator CoCursorMove()
     {
         Vector2 boundaryMin = Vector2.zero; // 수정된 부분
@@ -312,6 +314,8 @@ public class CPlayerInput_Test : MonoBehaviour
         coCursorMove = null;
     }
 
+
+    //마우스 움직임 체크
     public void OnMouseMove(InputAction.CallbackContext _context) 
     {
         if (m_Cursor.gameObject.activeSelf == false) m_Cursor.gameObject.SetActive(true);
@@ -324,6 +328,7 @@ public class CPlayerInput_Test : MonoBehaviour
         m_Cursor.anchoredPosition = pos;
     }
 
+    //마우스 클릭
     public void OnMouseLClick(InputAction.CallbackContext _context) 
     {
         switch (_context.phase)
@@ -345,7 +350,7 @@ public class CPlayerInput_Test : MonoBehaviour
         FindParentArea();
     }
 
-
+    //마우스 버튼으로 레이캐스팅
     public void RayCastOnCursor()
     {
         //if (m_CursorMode == true)
@@ -372,6 +377,8 @@ public class CPlayerInput_Test : MonoBehaviour
         }
     }
 
+
+    //마우스 드래그. 컵이동
     Coroutine coDrag = null;
     IEnumerator CoDrag(Transform _dragObj)
     {
@@ -399,6 +406,7 @@ public class CPlayerInput_Test : MonoBehaviour
         m_CurrSelectableArea = area;
     }
 
+    //다른 SelectableArea로 이동
     public void ChangeSelectableArea(CSelectableArea_New _area) 
     {
         m_CurrSelectableArea = _area;
@@ -406,10 +414,13 @@ public class CPlayerInput_Test : MonoBehaviour
         { m_CurrSelectable = _area.GetSelectable(); }
     }
 
+    //현재 버튼의 부모 Area를 현재 포커싱으로 변경함
     public void FocusToSelectable() 
     //{ m_CurrSelectableArea = m_CurrSelectable.GetComponentInParent<CSelectableArea>(); }
     { m_CurrSelectableArea = m_CurrSelectable.GetComponentInParent<CSelectableArea_New>(); }
 
+
+    //새창을 띄우고 포커싱
     //public void FocusOnWindow(CSelectableArea _area) 
     public void FocusOnWindow(CSelectableArea_New _area) 
     {
@@ -435,14 +446,13 @@ public class CPlayerInput_Test : MonoBehaviour
         m_CurrSelectable = _selectable;
     }
 
-    /// <summary>
-    /// /////////////////////////////
-    /// </summary>
+    //컵 잡기
     public void GrabCup()
     {
         m_DiceHolder.GrabCup();
     }
 
+    //주사위 던지기
     public void ThrowDice()
     {
         if (coDrag != null) StopCoroutine(coDrag);
@@ -451,7 +461,7 @@ public class CPlayerInput_Test : MonoBehaviour
     }
     /// //////////////////////////////// /////////////////////////////
 
-
+    //인풋 테스트. 강제공격
     public void OnDebug_Input(InputAction.CallbackContext _context)
     {
         switch (_context.phase)

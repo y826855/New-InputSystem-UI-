@@ -19,6 +19,7 @@ public class CSelectableAreaGroup : MonoBehaviour
     public bool m_IsSoftFocusing = false;
     public CSelectableArea_New m_SoftFocus = null;
 
+    //방향을 통해 버튼 찾기
     public CSelectableArea_New GetOther(CSelectableArea_New _area, CSelectableArea_New.EUI_Move _dir) 
     {
         if (m_ChildAreas.Count == 0) return null;
@@ -47,7 +48,7 @@ public class CSelectableAreaGroup : MonoBehaviour
         return null;
 	}
 
-
+    //그룹 닫기
     public void CloseGroup() 
     {
         m_CloseGroup = true;
@@ -56,6 +57,7 @@ public class CSelectableAreaGroup : MonoBehaviour
         { if (it.gameObject.activeSelf == true) it.Focus_Close(); }
     }
 
+    //그룹 열기
     public void OpenGroup() 
     {
         m_CloseGroup = false;
@@ -70,7 +72,7 @@ public class CSelectableAreaGroup : MonoBehaviour
     //활성화 되어 있는 놈이 있다면, 걔를 반환하게하자.
     //활성화 된게 없다면, 참조한 놈의 방향을 따라가자
 
-
+    //약한 포커싱 시작
     public void SoftFocusIn(CSelectableArea_New _area) 
     {
         foreach (var it in m_ChildAreas)
@@ -80,7 +82,7 @@ public class CSelectableAreaGroup : MonoBehaviour
             else it.Focus_Close();
         }
     }
-
+    //약한 포커싱 종료
     public void SoftFocusOut()
     {
         if(CGameManager.Instance.m_SelectableHandler.m_IsFocusing)
@@ -89,7 +91,7 @@ public class CSelectableAreaGroup : MonoBehaviour
         { it.Focus_Open(); }
     }
 
-
+    //Area에 포커싱 시작
     public void FocusIn_OtherArea()
     {
         //m_CanvasGroup.interactable = false;
@@ -97,7 +99,7 @@ public class CSelectableAreaGroup : MonoBehaviour
         foreach (var it in m_ChildAreas)
         { it.Focus_Open(); }
     }
-
+    //Area에 포커싱 종료
     public void FocusOut() 
     {
         if (m_IsSoftFocusing == true)

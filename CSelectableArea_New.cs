@@ -35,10 +35,10 @@ public class CSelectableArea_New : MonoBehaviour
 		if (m_Btn_Escape != null) m_IsCanEscape = true;
 	}
 
-    //다음 
+    //이동 방향 
     public enum EUI_Move { NONE, LEFT, RIGHT, UP, DOWN }
 	public CSelectableArea_New Found_Area_InDirection(EUI_Move _dir) 
-	{
+	{//네비게이션을 통해 해당방향 버튼 찾기
 		if(m_Parent != null) m_Parent.GetOther(this, _dir);
 
 		switch (_dir)
@@ -56,6 +56,7 @@ public class CSelectableArea_New : MonoBehaviour
 		return null;
 	}
 
+	//입력받은 방향의 버튼 찾기
 	public CSelectableArea_New CheckDir(CSelectableArea_New _area, EUI_Move _dir)
 	{
 		if (_area == null) return null;
@@ -96,11 +97,13 @@ public class CSelectableArea_New : MonoBehaviour
 			return GetSelectable();
 	}
 
+	//포커싱 종료
 	public virtual void Focus_Close()
 	{
 		m_CanvasGroup.interactable = false;
 		m_CanvasGroup.blocksRaycasts = false;
 	}
+	//포커싱 시작
 	public virtual void Focus_Open()
 	{
 		if (m_Parent != null && m_Parent.m_CloseGroup == true) 
@@ -109,12 +112,14 @@ public class CSelectableArea_New : MonoBehaviour
 		m_CanvasGroup.interactable = true;
 		m_CanvasGroup.blocksRaycasts = true;
 	}
+	//창 닫기
 	public virtual void Close()
 	{
 		if (m_ParentArea != null)
 		{ m_ParentArea.SetActive(false); }
 		this.gameObject.SetActive(false);
 	}
+	//창 열기
 	public virtual void Open()
 	{
 		if (m_ParentArea != null)
@@ -123,7 +128,7 @@ public class CSelectableArea_New : MonoBehaviour
 	}
 
 
-
+	//닫기 입력
 	public virtual void Escape() 
 	{
 		if(m_Btn_Escape != null) m_Btn_Escape.onClick.Invoke();

@@ -16,19 +16,20 @@ public class CSelectable_TargetEnemy : CSelectableArea_New
 
     public bool m_IsCanSelect_ForSkill = false;
 
-
+    //적 생성
     public void SpawnEnemy(CMonster _monster) 
     {
         m_ChildSelectables.Add(_monster.m_UI_Target.m_Selectable);
 
     }
 
+    //적 제거
     public void RemoveEnemy(CMonster _monster) 
     {
         m_ChildSelectables.Add(_monster.m_UI_Target.m_Selectable);
     }
 
-
+    //선택 모드 진입
     public void OnSelectMode(int _count) 
     {
         CGameManager.Instance.m_SelectableHandler.m_SelectionMode_Field
@@ -94,7 +95,7 @@ public class CSelectable_TargetEnemy : CSelectableArea_New
         Destroy(m_Player.m_Hitter.gameObject);
     }
 
-
+    //창 포커싱 시작
     public override void Open()
     {
         //m_CanvasGroup.interactable = true;
@@ -102,6 +103,7 @@ public class CSelectable_TargetEnemy : CSelectableArea_New
         m_IsCanSelect_ForSkill = true;
     }
 
+    //창 포커싱 종료
     public override void Close()
     {
         //m_CanvasGroup.interactable = false;
@@ -114,6 +116,7 @@ public class CSelectable_TargetEnemy : CSelectableArea_New
         //    = CSelectableArea_Handler.ESelectionMode_Field.NONE;
     }
 
+    //모든 타겟팅 표시 제거
     public void ClearTargetTextIcon() 
     {
         foreach (var it in m_Player.m_SkillTargets)
@@ -122,6 +125,7 @@ public class CSelectable_TargetEnemy : CSelectableArea_New
         m_Player.m_IsEndAttack = false;
     }
 
+    //포커싱 종료
     public override void Focus_Close()
     {
         m_CanvasGroup.interactable = false;
@@ -135,6 +139,7 @@ public class CSelectable_TargetEnemy : CSelectableArea_New
         m_CanvasGroup.blocksRaycasts = true;
     }
 
+    //포커싱 탈출
     public override void Escape()
     {
         if (m_IsCanSelect_ForSkill == false) return;
